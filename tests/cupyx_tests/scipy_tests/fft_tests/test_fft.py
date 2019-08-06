@@ -57,6 +57,7 @@ class TestFft(unittest.TestCase):
     @testing.for_all_dtypes()
     @testing.numpy_cupy_allclose(rtol=1e-4, atol=1e-7, accept_error=ValueError,
                                  contiguous_check=False)
+    @testing.with_requires('numpy!=1.17.0')  # 1.17.0 raises ZeroDivisonError
     def test_ifft(self, xp, dtype):
         x = testing.shaped_random(self.shape, xp, dtype)
         x_orig = x.copy()
@@ -67,6 +68,7 @@ class TestFft(unittest.TestCase):
     @testing.for_all_dtypes()
     @testing.numpy_cupy_allclose(rtol=1e-4, atol=1e-7, accept_error=ValueError,
                                  contiguous_check=False)
+    @testing.with_requires('numpy!=1.17.0')  # 1.17.0 raises ZeroDivisonError
     def test_ifft_overwrite(self, xp, dtype):
         x = testing.shaped_random(self.shape, xp, dtype)
         overwrite_kw = {} if xp == np else {'overwrite_x': True}
